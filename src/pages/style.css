@@ -1,0 +1,29 @@
+.image-home {
+  width: 300px;
+}
+
+.top-home {
+  display: flex;
+  justify-content: space-evenly;
+}
+
+.font-top {
+  font-size: 24px;
+  font-weight: bolder;
+}
+
+.middle-home {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+}
+
+.event-home {
+  display: flex;
+  flex-direction: row;
+}
+.image-event {
+  width: 100%;
+  height: 225px;
+  object-fit: cover;
+}

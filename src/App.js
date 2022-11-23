@@ -5,6 +5,7 @@ import { getUserWithStoredToken } from "./store/user/thunks";
 import { Routes, Route } from "react-router-dom";
 import { Navigation, MessageBox } from "./components";
 import { AboutPage, EventsPage, Homepage, Login, SignUp } from "./pages";
+import DetailsPage from "./pages/DetailsPage";
 
 function App() {
   const dispatch = useDispatch();
@@ -23,6 +24,7 @@ function App() {
         <Route path="/login" element={<Login />} />
         <Route path="/events" element={<EventsPage />} />
         <Route path="/about" element={<AboutPage />} />
+        <Route path="/details/:id" element={<DetailsPage />} />
       </Routes>
     </div>
   );
