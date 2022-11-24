@@ -67,12 +67,9 @@ export const Homepage = () => {
             {!events
               ? "Loading..."
               : events.map((e) => (
-                  <div className="event-home" key={e.id}>
+                  <div className="card" key={e.id}>
                     <img src={e.imageUrl} alt="Mr. T" />
                     <p>{e.title}</p>
-                    <p>{e.rating}</p>
-                    <p>€ {e.price}</p>
-                    <p>{e.description}</p>
                   </div>
                 ))}
           </div>

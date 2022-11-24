@@ -1,7 +1,7 @@
 import styled from "styled-components";
 import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { selectToken } from "../store/user/selectors";
+import { selectToken, selectUser } from "../store/user/selectors";
 import { logOut } from "../store/user/slice";
 import { Link } from "react-router-dom";
 
@@ -9,7 +9,7 @@ export const Navigation = () => {
   const [open, setOpen] = useState(false);
 
   const dispatch = useDispatch();
-
+  const user = useSelector(selectUser);
   const token = useSelector(selectToken);
 
   return (
@@ -25,6 +25,11 @@ export const Navigation = () => {
       <Menu open={open}>
         <MenuLink to="/events">Events</MenuLink>
         <MenuLink to="/about">Who We Are</MenuLink>
+        {user && user.isSpeaker ? (
+          <MenuLink to="/postevent">Post an Event</MenuLink>
+        ) : (
+          <div> </div>
+        )}
         {token ? (
           <button onClick={() => dispatch(logOut())}>Logout</button>
         ) : (

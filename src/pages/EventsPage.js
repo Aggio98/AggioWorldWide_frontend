@@ -32,7 +32,6 @@ const EventsPage = () => {
                   <p>{e.title}</p>
                   <p>{e.rating}</p>
                   <p>€ {e.price}</p>
-                  <p>{e.description}</p>
                 </Link>
               </div>
             ))}

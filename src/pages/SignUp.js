@@ -55,7 +55,7 @@ export const SignUp = () => {
             value={isSpeaker}
             onChange={() => setIsSpeaker(isSpeaker === false)}
           />
-          I am a speaker
+          Speaker
           <br />
           <Button type="submit">Sign Up</Button>
         </form>

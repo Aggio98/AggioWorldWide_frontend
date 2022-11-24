@@ -5,7 +5,7 @@ import { appLoading, appDoneLoading, setMessage } from "../appState/slice";
 import { showMessageWithTimeout } from "../appState/thunks";
 import { loginSuccess, logOut, tokenStillValid } from "./slice";
 
-export const signUp = (name, email, password) => {
+export const signUp = (name, email, password, isSpeaker) => {
   return async (dispatch, getState) => {
     dispatch(appLoading());
     try {
@@ -13,6 +13,7 @@ export const signUp = (name, email, password) => {
         name,
         email,
         password,
+        isSpeaker,
       });
 
       dispatch(
