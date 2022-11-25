@@ -62,18 +62,19 @@ export const Homepage = () => {
       </div>
       <div>
         <p>Events</p>
-        <Link to="/details/:id">
-          <div>
-            {!events
-              ? "Loading..."
-              : events.map((e) => (
-                  <div className="card" key={e.id}>
-                    <img src={e.imageUrl} alt="Mr. T" />
-                    <p>{e.title}</p>
-                  </div>
-                ))}
-          </div>
-        </Link>
+
+        <div>
+          {!events
+            ? "Loading..."
+            : events.map((e) => (
+                <div className="card" key={e.id}>
+                  <Link to={`details/${e.id}`}>
+                    <img src={e.imageUrl} alt={e.title} />
+                  </Link>
+                  <p>{e.title}</p>
+                </div>
+              ))}
+        </div>
       </div>
       <Link to="/events">
         <button>More Events</button>

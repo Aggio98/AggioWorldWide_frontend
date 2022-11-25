@@ -1,33 +1,34 @@
 import React from "react";
 import { useEffect } from "react";
-import { fetchEvents } from "../store/events/thunks";
+import { fetchDetails } from "../store/events/thunks";
 import { useDispatch, useSelector } from "react-redux";
-import { selectEvent } from "../store/events/selectors";
-import { Link } from "react-router-dom";
+import { selectDetails } from "../store/events/selectors";
+import { useParams } from "react-router-dom";
 
 const DetailsPage = () => {
+  const params = useParams();
   const dispatch = useDispatch();
-  const events = useSelector(selectEvent);
-  console.log(events);
+  const eventDetails = useSelector(selectDetails);
+  console.log(eventDetails);
 
   useEffect(() => {
-    dispatch(fetchEvents());
-  }, [dispatch]);
+    dispatch(fetchDetails(`${params.id}`));
+  }, [dispatch, params.id]);
+
   return (
     <div>
-      <div>
-        {!events
-          ? "Loading..."
-          : events.map((e) => (
-              <div className="event-home" key={e.id}>
-                <img src={e.imageUrl} alt="Mr. T" />
-                <p>{e.title}</p>
-                <p>{e.rating}</p>
-                <p>€ {e.price}</p>
-                <p>{e.description}</p>
-              </div>
-            ))}
-      </div>
+      {!eventDetails ? (
+        "Loading..."
+      ) : (
+        <div>
+          {eventDetails.title}
+          <img src={eventDetails.imageUrl} alt={eventDetails.title} />
+          <p>When:{eventDetails.date}</p>
+          <p>€ {eventDetails.price}</p>
+          <p>Rating: {eventDetails.rating}</p>
+          <p>{eventDetails.description}</p>
+        </div>
+      )}
     </div>
   );
 };

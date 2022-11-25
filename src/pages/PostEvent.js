@@ -24,15 +24,15 @@ const PostEvent = () => {
     data.append("upload_preset", "dmdxlz22b");
   };
 
-//   const res = await fetch("",{
-//     method:"POST",
-//     body: data
-//   })
+  //   const res = await fetch("",{
+  //     method:"POST",
+  //     body: data
+  //   })
 
-  const file = await res.json()
-    console.log("file", file) 
-    setImage(file.url) //put the url in local state, next step you can send it to the backend
-  }
+  //   const file = await res.json()
+  //     console.log("file", file)
+  //     setImage(file.url) //put the url in local state, next step you can send it to the backend
+  //   }
 
   return (
     <div>

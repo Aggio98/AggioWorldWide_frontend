@@ -1,15 +1,25 @@
 import { apiUrl } from "../../config/constants";
 import axios from "axios";
-import { allEvents, newEvent } from "./slice";
+import { allEvents, newEvent, allDetails } from "./slice";
 import { showMessageWithTimeout } from "../appState/thunks";
 
 export const fetchEvents = () => async (dispatch, getState) => {
   try {
     const response = await axios.get(`${apiUrl}/events`);
-    //console.log("these are my events", response.data);
+    console.log("these are my events", response.data);
     dispatch(allEvents(response.data));
   } catch (e) {
     console.log("error fetching events", e.message);
+  }
+};
+
+export const fetchDetails = (id) => async (dispatch, getState) => {
+  try {
+    const response = await axios.get(`${apiUrl}/details/${id}`);
+    //console.log("this is the details", response);
+    dispatch(allDetails(response.data));
+  } catch (e) {
+    console.log("error fetching details of art", e.message);
   }
 };
 
