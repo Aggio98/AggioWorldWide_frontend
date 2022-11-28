@@ -8,11 +8,13 @@ import {
   selectPrice,
 } from "../store/events/selectors";
 import { Link } from "react-router-dom";
+import "./style.css";
 
 const EventsPage = () => {
   const dispatch = useDispatch();
 
   const events = useSelector(selectEvent);
+
   const continentsChoices = useSelector(selectContinents);
   const priceChoices = useSelector(selectPrice);
   console.log(continentsChoices);
@@ -20,14 +22,15 @@ const EventsPage = () => {
   console.log(priceChoices);
 
   const [continents, setContinents] = useState([]);
-  const [rating, setRating] = useState([]);
+  const [rating, setRating] = useState(0);
+  const [priceFilter, setPriceFilter] = useState(1000);
 
   useEffect(() => {
     dispatch(fetchEvents());
   }, [dispatch]);
 
   const filterContinent = (events) =>
-    events.filter((event) => {
+    events?.filter((event) => {
       if (continents.length === 0) {
         return true;
       } else if (continents.includes(event.continent)) {
@@ -37,9 +40,8 @@ const EventsPage = () => {
       }
     });
 
-  const [priceFilter, setPriceFilter] = useState(1000);
   const filterByPrice = (events) =>
-    events.filter((event) => {
+    events?.filter((event) => {
       if (!priceFilter) {
         return true;
       }
@@ -50,12 +52,31 @@ const EventsPage = () => {
       }
     });
 
+  const filterByRating = (events) => {
+    console.log(rating, "this is the rating");
+    const filteredEvent = events.filter((event) => {
+      if (rating === 0) {
+        return true;
+      }
+      if (rating >= event.rating && rating <= event.rating) {
+        return true;
+      } else {
+        return false;
+      }
+    });
+    console.log(filteredEvent, "this is start filtered");
+    return filteredEvent;
+  };
+
+  // Make a new useState for the stars rating = Done
+  // OnChange of the start rating, update the useState of stars done
+
   return (
     <div>
       <img
         className="image-event"
         src="https://www.worldforum.nl/wp-content/uploads/2019/12/KWA-41-1920x1080.jpg"
-        alt="auditorium picture"
+        alt="auditorium"
       />
       <div>
         <h1>Events</h1>
@@ -78,7 +99,7 @@ const EventsPage = () => {
         </div>
         <div>
           <h5>
-            <label for="price">Loction:</label>
+            <label for="price">Continent:</label>
           </h5>
           <div>
             {continentsChoices.map((choice) => {
@@ -103,36 +124,25 @@ const EventsPage = () => {
         </div>
         <div>
           <h5>Ratings</h5>
-          <body>
-            <div class="rate">
-              <input type="radio" id="star5" name="rate" value="5" />
-              <label for="star5" title="text">
-                5 stars
-              </label>
-              <input type="radio" id="star4" name="rate" value="4" />
-              <label for="star4" title="text">
-                4 stars
-              </label>
-              <input type="radio" id="star3" name="rate" value="3" />
-              <label for="star3" title="text">
-                3 stars
-              </label>
-              <input type="radio" id="star2" name="rate" value="2" />
-              <label for="star2" title="text">
-                2 stars
-              </label>
-              <input type="radio" id="star1" name="rate" value="1" />
-              <label for="star1" title="text">
-                1 star
-              </label>
-            </div>
-          </body>
+          <div>
+            <button
+              onClick={() => {
+                setRating(rating);
+              }}
+            >
+              1 star
+            </button>
+            <p>2 star</p>
+            <p>3 star</p>
+            <p>4 star</p>
+            <p>5 star</p>
+          </div>
         </div>
       </div>
       <div>
         {!events
           ? "Loading..."
-          : filterContinent(filterByPrice(events)).map((e) => (
+          : filterContinent(filterByPrice(filterByRating(events)))?.map((e) => (
               <div className="event-home" key={e.id}>
                 <Link to={`/details/${e.id}`}>
                   <img src={e.imageUrl} alt="Mr. T" />

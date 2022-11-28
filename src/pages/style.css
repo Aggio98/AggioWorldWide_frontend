@@ -47,3 +47,20 @@ img {
 .container {
   padding: 2px 16px;
 }
+
+.star-rating input {
+  display: none;
+}
+.star-rating > label {
+  width: 30px;
+  height: 30px;
+  font-family: Verdana;
+  font-size: 30px;
+  color: orange;
+}
+.star-rating label::before {
+  content: "\2606";
+  position: absolute;
+  top: 0px;
+  line-height: 26px;
+}

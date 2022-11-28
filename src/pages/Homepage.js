@@ -1,4 +1,4 @@
-import { Link, matchRoutes } from "react-router-dom";
+import { Link } from "react-router-dom";
 import logo from "../AGGIO.png";
 import "./style.css";
 import { useEffect } from "react";
@@ -61,17 +61,20 @@ export const Homepage = () => {
         </div>
       </div>
       <div>
-        <p>Events</p>
+        <p>Upcoming Events</p>
 
         <div>
           {!events
             ? "Loading..."
-            : events.map((e) => (
+            : events.slice(0, 1).map((e) => (
                 <div className="card" key={e.id}>
                   <Link to={`details/${e.id}`}>
                     <img src={e.imageUrl} alt={e.title} />
                   </Link>
                   <p>{e.title}</p>
+                  <p>{e.location}</p>
+                  <p>{e.place}</p>
+                  <p>{e.date}</p>
                 </div>
               ))}
         </div>
