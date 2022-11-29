@@ -5,7 +5,7 @@ const EventCard = ({ event }) => {
   return (
     <div>
       <Link to={`/details/${event.id}`}>
-        <img src={event.imageUrl} alt="Mr. T" />
+        <img className="event-image" src={event.imageUrl} alt={event.title} />
         <p>{event.title}</p>
         <Rating name="simple-controlled" value={event.rating} readOnly />
         <p>€ {event.price}</p>

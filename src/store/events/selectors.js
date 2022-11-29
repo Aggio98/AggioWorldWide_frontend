@@ -9,10 +9,3 @@ export const selectContinents = (reduxState) => {
     return [];
   }
 };
-export const selectPrice = (reduxState) => {
-  if (reduxState.events.events) {
-    return [...new Set(reduxState.events.events.map((event) => event.price))];
-  } else {
-    return [];
-  }
-};

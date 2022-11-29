@@ -1,18 +1,12 @@
 import * as React from "react";
 import { useEffect, useState } from "react";
-
 import { fetchEvents } from "../store/events/thunks";
 import { useDispatch, useSelector } from "react-redux";
-import {
-  selectContinents,
-  selectEvent,
-  selectPrice,
-} from "../store/events/selectors";
+import { selectContinents, selectEvent } from "../store/events/selectors";
 import { Rating } from "@mui/material";
 import EventCard from "../components/EventCard";
-
 import { MapContainer, TileLayer, Marker, Popup } from "react-leaflet";
-import "leaflet/dist/leaflet.css";
+import { Link } from "react-router-dom";
 
 const EventsPage = () => {
   const dispatch = useDispatch();
@@ -20,14 +14,14 @@ const EventsPage = () => {
   const events = useSelector(selectEvent);
 
   const continentsChoices = useSelector(selectContinents);
-  const priceChoices = useSelector(selectPrice);
-  console.log(continentsChoices);
-  console.log(events);
-  console.log(priceChoices);
+  // console.log(continentsChoices);
+  // console.log(events);
+  // console.log(priceChoices);
 
   const [continents, setContinents] = useState([]);
   const [rating, setRating] = useState(0);
   const [priceFilter, setPriceFilter] = useState(1000);
+  const [toggle, setToggle] = useState(false);
 
   const filterContinent = (events) =>
     events?.filter((event) => {
@@ -63,13 +57,23 @@ const EventsPage = () => {
         return false;
       }
     });
-    console.log(filteredEvent, "this is start filtered");
+    //console.log(filteredEvent, "this is start filtered");
     return filteredEvent;
   };
 
   useEffect(() => {
     dispatch(fetchEvents());
   }, [dispatch]);
+
+  const getCenterPoint = (events) => {
+    let totalLon = 0;
+    let totalLat = 0;
+    events.forEach((event) => {
+      totalLon += event.longitude;
+      totalLat += event.latitude;
+    });
+    return [totalLat / events.length, totalLon / events.length];
+  };
 
   return (
     <div>
@@ -133,31 +137,61 @@ const EventsPage = () => {
           />
         </div>
       </div>
+      <button
+        onClick={() => {
+          setToggle(!toggle);
+        }}
+      >
+        {!toggle ? "MAP" : "LIST"}
+      </button>
+
       <div>
-        {!events
-          ? "Loading..."
-          : filterContinent(filterByPrice(filterByRating(events)))?.map(
-              (e, index) => <EventCard key={index} event={e} />
+        {!toggle ? (
+          <div>
+            {!events
+              ? "Loading..."
+              : filterContinent(filterByPrice(filterByRating(events)))?.map(
+                  (e, index) => <EventCard key={index} event={e} />
+                )}
+          </div>
+        ) : (
+          <div>
+            {!events ? (
+              "Loading map"
+            ) : (
+              <div>
+                <MapContainer
+                  style={{ height: "500px" }}
+                  center={getCenterPoint(events)}
+                  zoom={2}
+                  scrollWheelZoom={false}
+                >
+                  <TileLayer
+                    attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+                    url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+                  />
+                  {filterContinent(filterByPrice(filterByRating(events)))?.map(
+                    (event) => (
+                      <Marker position={[event.latitude, event.longitude]}>
+                        <Popup>
+                          <img
+                            alt={event.name}
+                            style={{ width: "100px", borderRadius: "0.5em" }}
+                            src={event.imageUrl}
+                          />
+                          <p>{event.title}</p>
+                          <Link to={`/details/${event.id}`}>
+                            <button>More Details</button>
+                          </Link>
+                        </Popup>
+                      </Marker>
+                    )
+                  )}
+                </MapContainer>
+              </div>
             )}
-      </div>
-      <div className="map-container">
-        This is the MapContainer
-        <MapContainer
-          style={{ height: "700px" }}
-          center={[51.505, -0.09]}
-          zoom={10}
-          scrollWheelZoom={false}
-        >
-          <TileLayer
-            attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
-            url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
-          />
-          <Marker position={[51.505, -0.09]}>
-            <Popup>
-              A pretty CSS3 popup. <br /> Easily customizable.
-            </Popup>
-          </Marker>
-        </MapContainer>
+          </div>
+        )}
       </div>
     </div>
   );

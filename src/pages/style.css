@@ -36,9 +36,7 @@
   flex-direction: row;
 }
 /* Add rounded corners to the top left and the top right corner of the image */
-img {
-  border-radius: 5px 5px 0 0;
-}
+
 .card:hover {
   box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.2);
 }
@@ -65,7 +63,6 @@ img {
   line-height: 26px;
 }
 
-.map-container {
-  width: 500px;
-  height: 300px;
+.event-image {
+  width: 200px;
 }
