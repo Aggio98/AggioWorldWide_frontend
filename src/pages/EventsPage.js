@@ -1,5 +1,6 @@
-import React from "react";
+import * as React from "react";
 import { useEffect, useState } from "react";
+
 import { fetchEvents } from "../store/events/thunks";
 import { useDispatch, useSelector } from "react-redux";
 import {
@@ -7,8 +8,11 @@ import {
   selectEvent,
   selectPrice,
 } from "../store/events/selectors";
-import { Link } from "react-router-dom";
-import "./style.css";
+import { Rating } from "@mui/material";
+import EventCard from "../components/EventCard";
+
+import { MapContainer, TileLayer, Marker, Popup } from "react-leaflet";
+import "leaflet/dist/leaflet.css";
 
 const EventsPage = () => {
   const dispatch = useDispatch();
@@ -24,10 +28,6 @@ const EventsPage = () => {
   const [continents, setContinents] = useState([]);
   const [rating, setRating] = useState(0);
   const [priceFilter, setPriceFilter] = useState(1000);
-
-  useEffect(() => {
-    dispatch(fetchEvents());
-  }, [dispatch]);
 
   const filterContinent = (events) =>
     events?.filter((event) => {
@@ -53,12 +53,11 @@ const EventsPage = () => {
     });
 
   const filterByRating = (events) => {
-    console.log(rating, "this is the rating");
     const filteredEvent = events.filter((event) => {
       if (rating === 0) {
         return true;
       }
-      if (rating >= event.rating && rating <= event.rating) {
+      if (event.rating === rating || event.rating > rating) {
         return true;
       } else {
         return false;
@@ -68,8 +67,9 @@ const EventsPage = () => {
     return filteredEvent;
   };
 
-  // Make a new useState for the stars rating = Done
-  // OnChange of the start rating, update the useState of stars done
+  useEffect(() => {
+    dispatch(fetchEvents());
+  }, [dispatch]);
 
   return (
     <div>
@@ -102,9 +102,9 @@ const EventsPage = () => {
             <label for="price">Continent:</label>
           </h5>
           <div>
-            {continentsChoices.map((choice) => {
+            {continentsChoices.map((choice, index) => {
               return (
-                <>
+                <div key={index}>
                   <input
                     type="checkbox"
                     checked={continents.includes(choice)}
@@ -117,42 +117,47 @@ const EventsPage = () => {
                     }}
                   />
                   {choice}
-                </>
+                </div>
               );
             })}
           </div>
         </div>
         <div>
           <h5>Ratings</h5>
-          <div>
-            <button
-              onClick={() => {
-                setRating(rating);
-              }}
-            >
-              1 star
-            </button>
-            <p>2 star</p>
-            <p>3 star</p>
-            <p>4 star</p>
-            <p>5 star</p>
-          </div>
+          <Rating
+            name="simple-controlled"
+            value={rating}
+            onChange={(event) => {
+              setRating(parseFloat(event.target.value));
+            }}
+          />
         </div>
       </div>
       <div>
         {!events
           ? "Loading..."
-          : filterContinent(filterByPrice(filterByRating(events)))?.map((e) => (
-              <div className="event-home" key={e.id}>
-                <Link to={`/details/${e.id}`}>
-                  <img src={e.imageUrl} alt="Mr. T" />
-                  <p>{e.title}</p>
-                  <p>{e.rating}</p>
-                  <p>€ {e.price}</p>
-                  <p>{e.date}</p>
-                </Link>
-              </div>
-            ))}
+          : filterContinent(filterByPrice(filterByRating(events)))?.map(
+              (e, index) => <EventCard key={index} event={e} />
+            )}
+      </div>
+      <div className="map-container">
+        This is the MapContainer
+        <MapContainer
+          style={{ height: "700px" }}
+          center={[51.505, -0.09]}
+          zoom={10}
+          scrollWheelZoom={false}
+        >
+          <TileLayer
+            attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+            url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+          />
+          <Marker position={[51.505, -0.09]}>
+            <Popup>
+              A pretty CSS3 popup. <br /> Easily customizable.
+            </Popup>
+          </Marker>
+        </MapContainer>
       </div>
     </div>
   );
