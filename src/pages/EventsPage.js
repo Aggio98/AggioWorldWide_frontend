@@ -77,101 +77,103 @@ const EventsPage = () => {
 
   return (
     <div>
-      <img
-        className="image-event"
-        src="https://www.worldforum.nl/wp-content/uploads/2019/12/KWA-41-1920x1080.jpg"
-        alt="auditorium"
-      />
       <div>
-        <h1>Events</h1>
-
+        <img
+          className="image-event"
+          src="https://www.worldforum.nl/wp-content/uploads/2019/12/KWA-41-1920x1080.jpg"
+          alt="auditorium"
+        />
         <div>
-          <h5>
-            <label for="price">Price (between 0 and 1000):</label>
-          </h5>
+          <h1>Events</h1>
+
           <div>
-            <input
-              type="range"
-              min="0"
-              max="1000"
-              id="price"
-              value={priceFilter}
-              onChange={(e) => setPriceFilter(e.target.value)}
+            <h5>
+              <label for="price">Price (between 0 and 1000):</label>
+            </h5>
+            <div>
+              <input
+                type="range"
+                min="0"
+                max="1000"
+                id="price"
+                value={priceFilter}
+                onChange={(e) => setPriceFilter(e.target.value)}
+              />
+              <label>{priceFilter}</label>
+            </div>
+          </div>
+          <div>
+            <h5>
+              <label for="price">Continent:</label>
+            </h5>
+            <div>
+              {continentsChoices.map((choice, index) => {
+                return (
+                  <div key={index}>
+                    <input
+                      type="checkbox"
+                      checked={continents.includes(choice)}
+                      onChange={() => {
+                        if (continents.includes(choice)) {
+                          setContinents(continents.filter((c) => c !== choice));
+                        } else {
+                          setContinents([...continents, choice]);
+                        }
+                      }}
+                    />
+                    {choice}
+                  </div>
+                );
+              })}
+            </div>
+          </div>
+          <div>
+            <h5>Ratings</h5>
+            <Rating
+              name="simple-controlled"
+              value={rating}
+              onChange={(event) => {
+                setRating(parseFloat(event.target.value));
+              }}
             />
-            <label>{priceFilter}</label>
           </div>
         </div>
-        <div>
-          <h5>
-            <label for="price">Continent:</label>
-          </h5>
-          <div>
-            {continentsChoices.map((choice, index) => {
-              return (
-                <div key={index}>
-                  <input
-                    type="checkbox"
-                    checked={continents.includes(choice)}
-                    onChange={() => {
-                      if (continents.includes(choice)) {
-                        setContinents(continents.filter((c) => c !== choice));
-                      } else {
-                        setContinents([...continents, choice]);
-                      }
-                    }}
-                  />
-                  {choice}
-                </div>
-              );
-            })}
-          </div>
-        </div>
-        <div>
-          <h5>Ratings</h5>
-          <Rating
-            name="simple-controlled"
-            value={rating}
-            onChange={(event) => {
-              setRating(parseFloat(event.target.value));
-            }}
-          />
-        </div>
-      </div>
-      <button
-        onClick={() => {
-          setToggle(!toggle);
-        }}
-      >
-        {!toggle ? "MAP" : "LIST"}
-      </button>
+        <button
+          onClick={() => {
+            setToggle(!toggle);
+          }}
+        >
+          {!toggle ? "MAP" : "LIST"}
+        </button>
 
-      <div>
-        {!toggle ? (
-          <div>
-            {!events
-              ? "Loading..."
-              : filterContinent(filterByPrice(filterByRating(events)))?.map(
-                  (e, index) => <EventCard key={index} event={e} />
-                )}
-          </div>
-        ) : (
-          <div>
-            {!events ? (
-              "Loading map"
-            ) : (
-              <div>
-                <MapContainer
-                  style={{ height: "500px" }}
-                  center={getCenterPoint(events)}
-                  zoom={2}
-                  scrollWheelZoom={false}
-                >
-                  <TileLayer
-                    attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
-                    url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
-                  />
-                  {filterContinent(filterByPrice(filterByRating(events)))?.map(
-                    (event) => (
+        <div>
+          {!toggle ? (
+            <div>
+              {!events
+                ? "Loading..."
+                : filterContinent(filterByPrice(filterByRating(events)))?.map(
+                    (e, index) => <EventCard key={index} event={e} />
+                  )}
+            </div>
+          ) : (
+            <div>
+              {!events ? (
+                "Loading map"
+              ) : (
+                <div>
+                  <MapContainer
+                    style={{ height: "500px" }}
+                    center={getCenterPoint(events)}
+                    zoom={2}
+                    scrollWheelZoom={false}
+                  >
+                    <TileLayer
+                      attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+                      url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+                    />
+                    {filterContinent(
+                      filterByPrice(filterByRating(events))
+                    )?.map((event) => (
                       <Marker position={[event.latitude, event.longitude]}>
                         <Popup>
                           <img
@@ -185,13 +187,13 @@ const EventsPage = () => {
                           </Link>
                         </Popup>
                       </Marker>
-                    )
-                  )}
-                </MapContainer>
-              </div>
-            )}
-          </div>
-        )}
+                    ))}
+                  </MapContainer>
+                </div>
+              )}
+            </div>
+          )}
+        </div>
       </div>
     </div>
   );

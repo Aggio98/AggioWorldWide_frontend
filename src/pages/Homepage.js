@@ -1,5 +1,6 @@
 import { Link } from "react-router-dom";
 import logo from "../AGGIO.png";
+
 import "./style.css";
 import { useEffect } from "react";
 import { fetchEvents } from "../store/events/thunks";
@@ -34,7 +35,7 @@ export const Homepage = () => {
       </div>
       <br />
       <br />
-      <div className="middle-home">
+      <div className="top-home">
         <div>
           <img
             className="image-home"
@@ -54,10 +55,6 @@ export const Homepage = () => {
             the difference you make, and your enjoyment of life—are directly a
             result of these shifts.
           </p>
-
-          <Link to="/about">
-            <button>Learn More</button>
-          </Link>
         </div>
       </div>
       <div>
@@ -67,14 +64,18 @@ export const Homepage = () => {
           {!events
             ? "Loading..."
             : events.slice(0, 1).map((e) => (
-                <div className="card" key={e.id}>
-                  <Link to={`details/${e.id}`}>
-                    <img src={e.imageUrl} alt={e.title} />
+                <div className="container" key={e.id}>
+                  <img src={e.imageUrl} alt={e.title} />
+
+                  <div className="intro">
+                    <h2>{e.title}</h2>
+                    <p>{e.address}</p>
+                    <p>{e.date}</p>
+                  </div>
+
+                  <Link to={`/details/${e.id}`}>
+                    <button>Read More</button>
                   </Link>
-                  <p>{e.title}</p>
-                  <p>{e.location}</p>
-                  <p>{e.place}</p>
-                  <p>{e.date}</p>
                 </div>
               ))}
         </div>

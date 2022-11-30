@@ -25,9 +25,9 @@ const DetailsPage = () => {
         <div>
           {eventDetails.title}
           <img src={eventDetails.imageUrl} alt={eventDetails.title} />
-          <p>When:{eventDetails.date}</p>
+          <p>When: {eventDetails.date}</p>
+          <p>Where: {eventDetails.address}</p>
           <p>€ {eventDetails.price}</p>
-          <p>Rating: {eventDetails.rating}</p>
           <p>{eventDetails.description}</p>
           <MapContainer
             style={{ height: "500px" }}

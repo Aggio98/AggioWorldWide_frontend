@@ -24,7 +24,6 @@ export const Navigation = () => {
       </Hamburger>
       <Menu open={open}>
         <MenuLink to="/events">Events</MenuLink>
-        <MenuLink to="/about">Who We Are</MenuLink>
         {user && user.isSpeaker ? (
           <MenuLink to="/postevent">Post an Event</MenuLink>
         ) : (

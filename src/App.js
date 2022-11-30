@@ -5,7 +5,6 @@ import { getUserWithStoredToken } from "./store/user/thunks";
 import { Routes, Route } from "react-router-dom";
 import { Navigation, MessageBox } from "./components";
 import {
-  AboutPage,
   EventsPage,
   Homepage,
   Login,
@@ -30,7 +29,6 @@ function App() {
         <Route path="/signup" element={<SignUp />} />
         <Route path="/login" element={<Login />} />
         <Route path="/events" element={<EventsPage />} />
-        <Route path="/about" element={<AboutPage />} />
         <Route path="/details/:id" element={<DetailsPage />} />
         <Route path="postevent" element={<PostEvent />} />
       </Routes>
