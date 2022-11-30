@@ -24,8 +24,9 @@ export const fetchDetails = (id) => async (dispatch, getState) => {
 };
 
 export const postEvent =
-  (title, description, imageUrl, address) => async (dispatch, getState) => {
-    const { title, description, imageUrl, address } = getState().body;
+  (title, description, imageUrl, address, date, price, capacity, continent) =>
+  async (dispatch, getState) => {
+    // const { title, description, imageUrl, address } = getState().body;
     console.log(title, description, imageUrl, address);
     const { profile, token } = getState().user;
 
@@ -37,32 +38,37 @@ export const postEvent =
       // 1- Make a request to Geopify API with the address to get lat and long
 
       const geopifyResponse = await axios.get(
-        `https://api.geoapify.com/v1/geocode/search?text=${address}${geoKey}`
+        `https://api.geoapify.com/v1/geocode/search?text=${address}&format=json&apiKey=${geoKey}
+        `
       );
-
       console.log(geopifyResponse);
-
+      const latitude = geopifyResponse.data.results[0].lat;
+      console.log(latitude);
+      const longitude = geopifyResponse.data.results[0].lon;
+      console.log(longitude);
       const response = await axios.post(
         `${apiUrl}/${profile.id}/events`,
         {
           title,
           description,
           imageUrl,
+          date,
+          price,
+          capacity,
+          address,
+          latitude,
+          longitude,
+          continent,
         },
         {
           headers: { Authorization: `Bearer ${token}` },
         }
       );
-      //console.log("Response newEvent", response);
+
+      console.log("Response newEvent", response);
       dispatch(showMessageWithTimeout("success", true, "New auction created"));
       dispatch(newEvent(response.data.event));
     } catch (e) {
       console.error(e);
     }
   };
-
-export const fetchGeo = () => async (dispatch, getState) => {
-  const response = await axios.get(
-    `https://api.geoapify.com/v1/geocode/search?text=38%20Upper%20Montagu%20Street%2C%20Westminster%20W1H%201LJ%2C%20United%20Kingdom&apiKey=${geoKey}`
-  );
-};

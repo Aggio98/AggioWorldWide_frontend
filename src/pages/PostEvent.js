@@ -7,16 +7,28 @@ const PostEvent = () => {
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
   const [image, setImage] = useState();
-  const [location, setLocation] = useState("");
-  const [place, setPlace] = useState("");
-  const [capacity, setCapacity] = useState("");
+  const [capacity, setCapacity] = useState(0);
   const [date, setDate] = useState("");
+  const [continent, setContinent] = useState("");
+  const [price, setPrice] = useState("");
+  const [address, setAddress] = useState("");
 
   const dispatch = useDispatch();
 
   const handleSubmit = (event) => {
     event.preventDefault();
-    dispatch(postEvent(title, description, image));
+    dispatch(
+      postEvent(
+        title,
+        description,
+        image,
+        address,
+        date,
+        price,
+        capacity,
+        continent
+      )
+    );
 
     setTitle("");
     setDescription("");
@@ -56,38 +68,33 @@ const PostEvent = () => {
                   : "https://upload.wikimedia.org/wikipedia/commons/thumb/6/65/No-Image-Placeholder.svg/1665px-No-Image-Placeholder.svg.png"
               }
             />
-            {/* {image ? (
-              <Title style={{ fontSize: 20 }}>Succesfully uploaded!</Title>
-            ) : (
-              ""
-            )} */}
             <label>
               <br />
-              Title:{" "}
               <input
                 type="text"
                 value={title}
+                placeholder="Title for Event"
                 onChange={(event) => setTitle(event.target.value)}
               />
             </label>
           </p>
           <p>
             <label>
-              Location:{" "}
               <input
                 type="text"
-                value={location}
-                onChange={(event) => setLocation(event.target.value)}
+                value={address}
+                placeholder="Address for Event"
+                onChange={(event) => setAddress(event.target.value)}
               />
             </label>
           </p>
           <p>
             <label>
-              Building:{" "}
               <input
                 type="text"
-                value={place}
-                onChange={(event) => setPlace(event.target.value)}
+                value={continent}
+                placeholder="Continent"
+                onChange={(event) => setContinent(event.target.value)}
               />
             </label>
           </p>
@@ -97,27 +104,39 @@ const PostEvent = () => {
               <input
                 type="number"
                 value={capacity}
+                placeholder="Max Amount of People that can Attend"
                 onChange={(event) => setCapacity(event.target.value)}
               />
             </label>
           </p>
           <p>
             <label>
-              Description:{" "}
               <textarea
                 type="text"
                 value={description}
+                placeholder="Describe your Event"
                 onChange={(event) => setDescription(event.target.value)}
               />
             </label>
           </p>
           <p>
             <label>
-              Date:{" "}
               <input
                 type="date"
                 value={date}
+                placeholder="Date"
                 onChange={(event) => setDate(event.target.value)}
+              />
+            </label>
+          </p>
+          <p>
+            <label>
+              €:{" "}
+              <input
+                type="number"
+                value={price}
+                placeholder="Price"
+                onChange={(event) => setPrice(event.target.value)}
               />
             </label>
           </p>

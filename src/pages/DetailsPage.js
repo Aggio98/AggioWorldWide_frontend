@@ -29,6 +29,7 @@ const DetailsPage = () => {
           <p>Where: {eventDetails.address}</p>
           <p>€ {eventDetails.price}</p>
           <p>{eventDetails.description}</p>
+
           <MapContainer
             style={{ height: "500px" }}
             center={[eventDetails.latitude, eventDetails.longitude]}
