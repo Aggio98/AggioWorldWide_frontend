@@ -3,6 +3,7 @@ import { createSlice } from "@reduxjs/toolkit";
 const initialState = {
   events: null,
   eventsDetails: null,
+  orders: null,
 };
 
 export const eventSlice = createSlice({

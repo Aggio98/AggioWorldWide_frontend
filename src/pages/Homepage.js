@@ -40,7 +40,7 @@ export const Homepage = () => {
           <img
             className="image-home"
             src="https://www.genardmethod.com/hubfs/123RF_Photos_GG/108985130_M%20--%20123RF%20--%2011.14.19.jpg"
-            alt="picture of someone speaking on stage"
+            alt=""
           />
         </div>
         <div>

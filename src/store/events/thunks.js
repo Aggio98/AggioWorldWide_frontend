@@ -26,17 +26,10 @@ export const fetchDetails = (id) => async (dispatch, getState) => {
 export const postEvent =
   (title, description, imageUrl, address, date, price, capacity, continent) =>
   async (dispatch, getState) => {
-    // const { title, description, imageUrl, address } = getState().body;
     console.log(title, description, imageUrl, address);
     const { profile, token } = getState().user;
 
-    // The address is just a string to send ot the api
-    // 2- await Apend those lat/long to the event object
-    // 3- await Send to the backend.
-
     try {
-      // 1- Make a request to Geopify API with the address to get lat and long
-
       const geopifyResponse = await axios.get(
         `https://api.geoapify.com/v1/geocode/search?text=${address}&format=json&apiKey=${geoKey}
         `
@@ -64,11 +57,17 @@ export const postEvent =
           headers: { Authorization: `Bearer ${token}` },
         }
       );
-
       console.log("Response newEvent", response);
-      dispatch(showMessageWithTimeout("success", true, "New auction created"));
+      dispatch(
+        showMessageWithTimeout("success", true, "Event Created, Goodluck!")
+      );
       dispatch(newEvent(response.data.event));
     } catch (e) {
       console.error(e);
     }
+  };
+
+export const fetchTickets =
+  (name, email, userId, quantity, event) => async (dispatch, getState) => {
+    const response = await axios.get(`${apiUrl}/orders/${event.id}`);
   };

@@ -11,6 +11,7 @@ import {
   SignUp,
   PostEvent,
   DetailsPage,
+  OrderPage,
 } from "./pages";
 
 function App() {
@@ -30,7 +31,8 @@ function App() {
         <Route path="/login" element={<Login />} />
         <Route path="/events" element={<EventsPage />} />
         <Route path="/details/:id" element={<DetailsPage />} />
-        <Route path="postevent" element={<PostEvent />} />
+        <Route path="/postevent" element={<PostEvent />} />
+        <Route path="/order/:id" element={<OrderPage />} />
       </Routes>
     </div>
   );

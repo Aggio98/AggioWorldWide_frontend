@@ -6,6 +6,7 @@ import { selectDetails } from "../store/events/selectors";
 import { useParams } from "react-router-dom";
 import { MapContainer, TileLayer, Marker } from "react-leaflet";
 import MapController from "../components/MapController";
+import { Link } from "react-router-dom";
 
 const DetailsPage = () => {
   const params = useParams();
@@ -23,11 +24,18 @@ const DetailsPage = () => {
         "Loading..."
       ) : (
         <div>
-          {eventDetails.title}
-          <img src={eventDetails.imageUrl} alt={eventDetails.title} />
+          <p>{eventDetails.title}</p>
+          <img
+            src={eventDetails.imageUrl}
+            alt={eventDetails.title}
+            style={{ width: "500px" }}
+          />
           <p>When: {eventDetails.date}</p>
           <p>Where: {eventDetails.address}</p>
           <p>€ {eventDetails.price}</p>
+          <Link to={`/order/${eventDetails.id}`}>
+            <button>Reserve your spot</button>
+          </Link>
           <p>{eventDetails.description}</p>
 
           <MapContainer
