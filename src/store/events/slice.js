@@ -15,14 +15,18 @@ export const eventSlice = createSlice({
     },
     newEvent: (state, action) => {
       console.log(state, "state event");
-      // state.events = action.payload;
+      //state.events = action.payload;
     },
     allDetails: (state, action) => {
       state.eventsDetails = action.payload;
     },
+    getTickets: (state, action) => {
+      state.orders = action.payload;
+    },
   },
 });
 
-export const { allEvents, newEvent, allDetails } = eventSlice.actions;
+export const { allEvents, newEvent, allDetails, getTickets } =
+  eventSlice.actions;
 
 export default eventSlice.reducer;

@@ -64,17 +64,21 @@ export const Homepage = () => {
           {!events
             ? "Loading..."
             : events.slice(0, 1).map((e) => (
-                <div className="container" key={e.id}>
-                  <img src={e.imageUrl} alt={e.title} />
+                <div className="card" style={{ width: "18rem" }} key={e.id}>
+                  <img
+                    className="card-img-top"
+                    src={e.imageUrl}
+                    alt={e.title}
+                  />
 
-                  <div className="intro">
-                    <h2>{e.title}</h2>
-                    <p>{e.address}</p>
-                    <p>{e.date}</p>
+                  <div className="card-body">
+                    <h5 className="card-title">{e.title}</h5>
+                    <p className="card-text">{e.address}</p>
+                    <p className="card-text">{e.date}</p>
                   </div>
 
-                  <Link to={`/details/${e.id}`}>
-                    <button>Read More</button>
+                  <Link to={`/details/${e.id}`} className="p-4">
+                    <button className="btn btn-primary">Read More</button>
                   </Link>
                 </div>
               ))}

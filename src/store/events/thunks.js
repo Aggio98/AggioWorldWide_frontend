@@ -34,7 +34,7 @@ export const postEvent =
         `https://api.geoapify.com/v1/geocode/search?text=${address}&format=json&apiKey=${geoKey}
         `
       );
-      console.log(geopifyResponse);
+      //console.log(geopifyResponse);
       const latitude = geopifyResponse.data.results[0].lat;
       console.log(latitude);
       const longitude = geopifyResponse.data.results[0].lon;
@@ -57,7 +57,7 @@ export const postEvent =
           headers: { Authorization: `Bearer ${token}` },
         }
       );
-      console.log("Response newEvent", response);
+      console.log("Response newEvent", response.data);
       dispatch(
         showMessageWithTimeout("success", true, "Event Created, Goodluck!")
       );
@@ -67,7 +67,13 @@ export const postEvent =
     }
   };
 
-export const fetchTickets =
-  (name, email, userId, quantity, event) => async (dispatch, getState) => {
-    const response = await axios.get(`${apiUrl}/orders/${event.id}`);
+export const createTickets =
+  (name, email, quantity, userId, eventId) => async (dispatch, getState) => {
+    const response = await axios.post(`${apiUrl}/orders/${eventId}`, {
+      name,
+      email,
+      quantity,
+      userId,
+    });
+    console.log(response, "thunk response orders");
   };

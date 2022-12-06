@@ -60,14 +60,15 @@ const PostEvent = () => {
               Image: <input type="file" onChange={uploadImage} />
             </label>
           </p>
+
+          <Image
+            src={
+              image
+                ? image
+                : "https://upload.wikimedia.org/wikipedia/commons/thumb/6/65/No-Image-Placeholder.svg/1665px-No-Image-Placeholder.svg.png"
+            }
+          />
           <p>
-            <Image
-              src={
-                image
-                  ? image
-                  : "https://upload.wikimedia.org/wikipedia/commons/thumb/6/65/No-Image-Placeholder.svg/1665px-No-Image-Placeholder.svg.png"
-              }
-            />
             <label>
               <br />
               <input

@@ -1,4 +1,4 @@
-import "./App.css";
+import "./App.scss";
 import { useEffect } from "react";
 import { useDispatch } from "react-redux";
 import { getUserWithStoredToken } from "./store/user/thunks";
