@@ -85,7 +85,7 @@ const EventsPage = () => {
         />
       </div>
       <div>
-        <h1>Events</h1>
+        <h1 style={{ display: "flex", justifyContent: "center" }}>Events</h1>
         <div>
           <div
             style={{
@@ -96,7 +96,7 @@ const EventsPage = () => {
           >
             <div>
               <h5>
-                <label htmlFor="price">Price (between 0 and 1000):</label>
+                <label htmlFor="price">Price (between €0 and €1000):</label>
               </h5>
               <div>
                 <input
@@ -154,7 +154,7 @@ const EventsPage = () => {
               setToggle(!toggle);
             }}
             type="button"
-            class="btn btn-success"
+            className="btn btn-success"
             style={{ margin: "8px" }}
           >
             {!toggle ? "MAP" : "LIST"}
@@ -167,12 +167,13 @@ const EventsPage = () => {
                   display: "flex",
                   flexWrap: "wrap",
                   alignContent: "center",
+                  justifyContent: "center",
                 }}
               >
                 {!events
                   ? "Loading..."
                   : filterContinent(filterByPrice(filterByRating(events)))?.map(
-                      (e, index) => <EventCard key={index} event={e} />
+                      (e, id) => <EventCard key={id} event={e} />
                     )}
               </div>
             ) : (
@@ -193,8 +194,11 @@ const EventsPage = () => {
                       />
                       {filterContinent(
                         filterByPrice(filterByRating(events))
-                      )?.map((event) => (
-                        <Marker position={[event.latitude, event.longitude]}>
+                      )?.map((event, id) => (
+                        <Marker
+                          key={id}
+                          position={[event.latitude, event.longitude]}
+                        >
                           <Popup>
                             <img
                               alt={event.name}
@@ -203,7 +207,7 @@ const EventsPage = () => {
                             />
                             <p>{event.title}</p>
                             <Link to={`/details/${event.id}`}>
-                              <button type="button" class="btn btn-success">
+                              <button type="button" className="btn btn-success">
                                 More Details
                               </button>
                             </Link>

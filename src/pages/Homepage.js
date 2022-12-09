@@ -20,7 +20,7 @@ export const Homepage = () => {
   return (
     <div>
       <br />
-      <div className="top-home">
+      <div className="top-home" style={{ alignItems: "center" }}>
         <div>
           <img style={{ width: "300px" }} src={logo} alt="logo" />
         </div>
@@ -41,12 +41,13 @@ export const Homepage = () => {
           display: "flex",
           flexDirection: "row",
           justifyContent: "space-evenly",
+          alignItems: "center",
         }}
       >
         <div>
           <img
             style={{
-              width: "300px",
+              width: "400px",
               justifyContent: "space-evenly",
               margin: "auto",
             }}
@@ -103,7 +104,11 @@ export const Homepage = () => {
                     <p className="card-text">{moment(e.date).format("LLL")}</p>
                   </div>
 
-                  <Link to={`/details/${e.id}`} className="p-4">
+                  <Link
+                    to={`/details/${e.id}`}
+                    className="p-4"
+                    style={{ display: "flex", justifyContent: "center" }}
+                  >
                     <button className="btn btn-primary">Read More</button>
                   </Link>
                 </div>
@@ -118,7 +123,7 @@ export const Homepage = () => {
             textDecoration: "none",
           }}
         >
-          <button type="button" class="btn btn-success">
+          <button type="button" className="btn btn-success">
             More Events
           </button>
         </Link>

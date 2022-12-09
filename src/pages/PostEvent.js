@@ -55,7 +55,6 @@ const PostEvent = () => {
         display: "flex",
         flexDirection: "column",
         alignItems: "center",
-        //margin: "8px",
       }}
     >
       <h1>Make an Event</h1>
@@ -88,6 +87,7 @@ const PostEvent = () => {
               <input
                 type="text"
                 className="form-control"
+                style={{ width: "400px" }}
                 value={title}
                 placeholder="Title for Event"
                 onChange={(event) => setTitle(event.target.value)}
@@ -100,6 +100,7 @@ const PostEvent = () => {
               <input
                 type="text"
                 className="form-control"
+                style={{ width: "400px" }}
                 value={address}
                 placeholder="Address for Event"
                 onChange={(event) => setAddress(event.target.value)}
@@ -112,6 +113,7 @@ const PostEvent = () => {
               <input
                 type="text"
                 className="form-control"
+                style={{ width: "250px" }}
                 value={continent}
                 placeholder="Continent"
                 onChange={(event) => setContinent(event.target.value)}
@@ -124,8 +126,10 @@ const PostEvent = () => {
               <input
                 type="number"
                 className="form-control"
+                style={{ width: "250px" }}
                 value={capacity}
                 placeholder="Max Amount of People that can Attend"
+                min="0"
                 onChange={(event) => setCapacity(event.target.value)}
               />
             </label>
@@ -136,6 +140,7 @@ const PostEvent = () => {
               <textarea
                 type="text"
                 className="form-control"
+                style={{ width: "400px" }}
                 value={description}
                 placeholder="Describe your Event"
                 onChange={(event) => setDescription(event.target.value)}
