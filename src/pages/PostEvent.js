@@ -50,14 +50,27 @@ const PostEvent = () => {
   };
 
   return (
-    <div>
+    <div
+      style={{
+        display: "flex",
+        flexDirection: "column",
+        alignItems: "center",
+        //margin: "8px",
+      }}
+    >
       <h1>Make an Event</h1>
       <h5>Post one of your upcoming events</h5>
       <div>
         <form onSubmit={handleSubmit}>
           <p>
-            <label>
-              Image: <input type="file" onChange={uploadImage} />
+            <label htmlFor="formFileSm" className="form-label">
+              Image:{" "}
+              <input
+                className="form-control form-control-sm"
+                id="formFileSm"
+                type="file"
+                onChange={uploadImage}
+              />
             </label>
           </p>
 
@@ -68,82 +81,96 @@ const PostEvent = () => {
                 : "https://upload.wikimedia.org/wikipedia/commons/thumb/6/65/No-Image-Placeholder.svg/1665px-No-Image-Placeholder.svg.png"
             }
           />
-          <p>
-            <label>
+          <div className="col-md-4">
+            <label htmlFor="validationCustom01" className="form-label">
               <br />
+              Title of Event:{" "}
               <input
                 type="text"
+                className="form-control"
                 value={title}
                 placeholder="Title for Event"
                 onChange={(event) => setTitle(event.target.value)}
               />
             </label>
-          </p>
-          <p>
-            <label>
+          </div>
+          <div className="col-md-4">
+            <label htmlFor="validationCustom01" className="form-label">
+              Address of Event:{" "}
               <input
                 type="text"
+                className="form-control"
                 value={address}
                 placeholder="Address for Event"
                 onChange={(event) => setAddress(event.target.value)}
               />
             </label>
-          </p>
-          <p>
-            <label>
+          </div>
+          <div className="col-md-4">
+            <label htmlFor="validationCustom01" className="form-label">
+              Continent:{" "}
               <input
                 type="text"
+                className="form-control"
                 value={continent}
                 placeholder="Continent"
                 onChange={(event) => setContinent(event.target.value)}
               />
             </label>
-          </p>
-          <p>
-            <label>
+          </div>
+          <div className="col-md-4">
+            <label htmlFor="validationCustom01" className="form-label">
               Capacity:{" "}
               <input
                 type="number"
+                className="form-control"
                 value={capacity}
                 placeholder="Max Amount of People that can Attend"
                 onChange={(event) => setCapacity(event.target.value)}
               />
             </label>
-          </p>
-          <p>
-            <label>
+          </div>
+          <div className="col-md-4">
+            <label htmlFor="validationCustom01" className="form-label">
+              Description about Event:{" "}
               <textarea
                 type="text"
+                className="form-control"
                 value={description}
                 placeholder="Describe your Event"
                 onChange={(event) => setDescription(event.target.value)}
               />
             </label>
-          </p>
-          <p>
-            <label>
+          </div>
+          <div className="col-md-3">
+            <label htmlFor="validationCustom04" className="form-label">
+              Date of Event:{" "}
               <input
                 type="date"
                 value={date}
+                className="form-select"
                 placeholder="Date"
                 onChange={(event) => setDate(event.target.value)}
               />
             </label>
-          </p>
-          <p>
-            <label>
-              €:{" "}
+          </div>
+          <div className="col-md-4">
+            <label htmlFor="validationCustom01" className="form-label">
+              Price:{" "}
               <input
                 type="number"
+                className="form-control"
                 value={price}
                 placeholder="Price"
                 onChange={(event) => setPrice(event.target.value)}
               />
             </label>
-          </p>
+          </div>
 
           <br />
-          <button type="submit">Create Event</button>
+          <button type="submit" className="btn btn-success">
+            Create Event
+          </button>
         </form>
       </div>
     </div>

@@ -1,1 +1,11 @@
 @import "../node_modules/bootstrap/scss/bootstrap";
+
+.whole-app {
+  background-color: #808080;
+  color: white;
+}
+
+.event-row {
+  display: flex;
+  flex-direction: row;
+}

@@ -30,7 +30,12 @@ export const Navigation = () => {
           <div> </div>
         )}
         {token ? (
-          <button onClick={() => dispatch(logOut())}>Logout</button>
+          <button
+            className="btn btn-success"
+            onClick={() => dispatch(logOut())}
+          >
+            Logout
+          </button>
         ) : (
           <MenuLink to="/login">Login</MenuLink>
         )}

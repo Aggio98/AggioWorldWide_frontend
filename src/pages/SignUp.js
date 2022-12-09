@@ -33,30 +33,32 @@ export const SignUp = () => {
     <div style={{ textAlign: "center" }}>
       <Container>
         <Title>Sign Up</Title>
-        <form onSubmit={submitForm}>
-          <Input
-            placeholder="name"
-            value={name}
-            onChange={(e) => setName(e.target.value)}
-          />
-          <Input
-            placeholder="email"
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
-          />
-          <Input
-            type="password"
-            placeholder="password"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-          />
+        <Input
+          placeholder="name"
+          value={name}
+          onChange={(e) => setName(e.target.value)}
+        />
+        <Input
+          placeholder="email"
+          value={email}
+          onChange={(e) => setEmail(e.target.value)}
+        />
+        <Input
+          type="password"
+          placeholder="password"
+          value={password}
+          onChange={(e) => setPassword(e.target.value)}
+        />
+        <br />
+        <label>
           <Input
             type="checkbox"
             value={isSpeaker}
             onChange={() => setIsSpeaker(isSpeaker === false)}
           />
           Speaker
-          <br />
+        </label>
+        <form onSubmit={submitForm}>
           <Button type="submit">Sign Up</Button>
         </form>
       </Container>

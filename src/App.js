@@ -13,6 +13,7 @@ import {
   DetailsPage,
   OrderPage,
 } from "./pages";
+import Footer from "./components/Footer";
 
 function App() {
   const dispatch = useDispatch();
@@ -22,7 +23,7 @@ function App() {
   }, [dispatch]);
 
   return (
-    <div>
+    <div className="whole-app">
       <Navigation />
       <MessageBox />
       <Routes>
@@ -34,6 +35,7 @@ function App() {
         <Route path="/postevent" element={<PostEvent />} />
         <Route path="/order/:id" element={<OrderPage />} />
       </Routes>
+      <Footer />
     </div>
   );
 }
